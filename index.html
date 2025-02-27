@@ -1,0 +1,169 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Homemade Hacks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .bookmarklet-container {
+            width: 45%;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .bookmarklet-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .bookmarklet-code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+        }
+        .copy-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Our Homemade Hacks</h1>
+
+        <!-- Bookmarklet 1 -->
+        <div class="bookmarklet-container">
+            <h2 class="bookmarklet-title">Bookmarklet 1: Open a new tab with a specific URL</h2>
+            <div class="bookmarklet-code">
+                javascript:window.open('https://example.com');
+            </div>
+            <button class="copy-button" onclick="this.select(); document.execCommand('copy');">Copy</button>
+        </div>
+
+        <!-- Bookmarklet 2 -->
+        <div class="bookmarklet-container">
+            <h2 class="bookmarklet-title">Bookmarklet 2: Change the page title</h2>
+            <div class="bookmarklet-code">
+                javascript:document.title = 'New Page Title';
+            </div>
+            <button class="copy-button" onclick="this.select(); document.execCommand('copy');">Copy</button>
+        </div>
+
+        <!-- Bookmarklet 3 -->
+        <div class="bookmarklet-container">
+            <h2 class="bookmarklet-title">Bookmarklet 3: Scroll to the bottom of the page</h2>
+            <div class="bookmarklet-code">
+                javascript:(function() {
+                    var lastKnownScrollPosition = 0;
+                    var ticking = false;
+                    document.documentElement.scrollingElement.addEventListener('scroll', function(e) {
+                        lastKnownScrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+                        if (!ticking) {
+                            window.requestAnimationFrame(function() {
+                                ticking = false;
+                                window.scrollTo(0, lastKnownScrollPosition + document.documentElement.clientHeight);
+                            });
+                            ticking = true;
+                        }
+                    });
+                })();
+            </div>
+            <button class="copy-button" onclick="this.select(); document.execCommand('copy');">Copy</button>
+        </div>
+
+        <!-- Bookmarklet 4 -->
+        <div class="bookmarklet-container">
+            <h2 class="bookmarklet-title">Bookmarklet 4: Highlight all text on the page</h2>
+            <div class="bookmarklet-code">
+                javascript:(function() {
+                    var range, selection;
+                    if (window.getSelection) {
+                        range = document.createRange();
+                        selection = window.getSelection();
+                        range.selectNodeContents(document.body);
+                        range.collapse(false);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        document.body.style.backgroundColor = 'yellow';
+                    }
+                })();
+            </div>
+            <button class="copy-button" onclick="this.select(); document.execCommand('copy');">Copy</button>
+        </div>
+
+        <!-- Bookmarklet 5 -->
+        <div class="bookmarklet-container">
+            <h2 class="bookmarklet-title">Bookmarklet 5: Save the page as a PDF</h2>
+            <div class="bookmarklet-code">
+                javascript:(function() {
+                    var doc = new jsPDF('p', 'pt', 'letter');
+                    source = document.getElementById('content');
+                    specialElementHandlers = {
+                        '#editor': function (element, renderer) {
+                            return true;
+                        }
+                    };
+                    margins = {
+                        top: 80,
+                        bottom: 60,
+                        left: 40,
+                        width: 522
+                    };
+                    doc.fromHTML(source, margins.left, margins.top, {
+                        'width': margins.width,
+                        'elementHandlers': specialElementHandlers
+                    });
+                    doc.save('MyWebsite.pdf');
+                })();
+            </div>
+            <button class="copy-button" onclick="this.select(); document.execCommand('copy');">Copy</button>
+        </div>
+    </div>
+
+    <h2>Tutorial: Creating a JavaScript Bookmarklet</h2>
+    <p>
+        1. Open your web browser and navigate to the bookmark manager (usually located in the bookmarks bar or under the bookmarks menu).
+    </p>
+    <p>
+        2. Create a new bookmark and name it something like "My Bookmarklet".
+    </p>
+    <p>
+        3. In the URL field, paste the JavaScript code from one of the bookmarklets above.
+    </p>
+    <p>
+        4. Replace the comment with the desired functionality.
+    </p>
+    <p>
+        5. Save the bookmark. Now, when you click the bookmark, the specified JavaScript code will run on the current webpage.
+    </p>
+</body>
+</html>
